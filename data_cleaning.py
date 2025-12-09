@@ -143,7 +143,7 @@ for code, (expected_orig, expected_dest) in route_rules.items():
 
 
 ##############################################################################
-print('/n Comparison of the Airlines delay time: ')
+print('Comparison of the Airlines delay time: ')
 
 # Filter rows for the airline FlyUIBK
 flyuibk_rows = df[df["Airline"] == "FlyUIBK"]
@@ -153,12 +153,36 @@ avg_delay_flyuibk = flyuibk_rows["delay_ds_min"].mean()
 
 print(f"Average delay for FlyUIBK: {avg_delay_flyuibk:.2f} minutes")
 
-# Filter rows for the airline FlyUIBK
+# Filter rows for the airline LDA
 LDA_rows = df[df["Airline"] == "LDA"]
 
 # Compute the average delay
 avg_delay_LDA = LDA_rows["delay_ds_min"].mean()
 
 print(f"Average delay for LDA: {avg_delay_LDA:.2f} minutes")
+
+
+########################################################################
+
+from scipy.stats import ttest_ind
+
+# Filter rows by airline
+fly = df[df["Airline"] == "FlyUIBK"]["Arrival delay in minutes"].dropna()
+lda = df[df["Airline"] == "LDA"]["Arrival delay in minutes"].dropna()
+
+print("FlyUIBK mean delay:", fly.mean())
+print("LDA mean delay:", lda.mean())
+
+print("\nFlyUIBK std:", fly.std())
+print("LDA std:", lda.std())
+
+print('\n')
+print(len(fly), len(lda))  # sample sizes
+
+# Perform Welch’s t-test
+t_stat, p_val = ttest_ind(fly, lda, equal_var=False)
+
+print(f"T-statistic: {t_stat:.4f}")
+print(f"P-value:     {p_val:.6f}")
 
 
