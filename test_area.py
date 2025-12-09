@@ -46,7 +46,7 @@ df["act_arr_dt"] = pd.to_datetime(
     format="%Y-%m-%d %H:%M:%S",
     errors="coerce")
 
-#### ADDING GPT CODE (new robust version) ####
+
 
 # 1) Make sure dataset delay column is numeric
 df["delay_ds_min"] = pd.to_numeric(df[ds_arr_del_col], errors="coerce")
@@ -84,6 +84,6 @@ print("Mismatches (rounded):", len(mismatches))
 
 # print the amount of mismatches
 if mismatches.empty:
-    print("No mismatches. We can rely on the given data")
+    print("No mismatches. We can rely on the given data.")
 else:
     print(f"There are {len(mismatches)} mismatches.")
