@@ -143,7 +143,7 @@ for code, (expected_orig, expected_dest) in route_rules.items():
 
 
 ##############################################################################
-print('Comparison of the Airlines delay time: ')
+print('\nComparison of the Airlines delay time: ')
 
 # Filter rows for the airline FlyUIBK
 flyuibk_rows = df[df["Airline"] == "FlyUIBK"]
@@ -164,14 +164,13 @@ print(f"Average delay for LDA: {avg_delay_LDA:.2f} minutes")
 
 ########################################################################
 
+# T-Test // 
+
 from scipy.stats import ttest_ind
 
 # Filter rows by airline
 fly = df[df["Airline"] == "FlyUIBK"]["Arrival delay in minutes"].dropna()
 lda = df[df["Airline"] == "LDA"]["Arrival delay in minutes"].dropna()
-
-print("FlyUIBK mean delay:", fly.mean())
-print("LDA mean delay:", lda.mean())
 
 print("\nFlyUIBK std:", fly.std())
 print("LDA std:", lda.std())
@@ -184,5 +183,8 @@ t_stat, p_val = ttest_ind(fly, lda, equal_var=False)
 
 print(f"T-statistic: {t_stat:.4f}")
 print(f"P-value:     {p_val:.6f}")
+
+
+########################################################################
 
 
